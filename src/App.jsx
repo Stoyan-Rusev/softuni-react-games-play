@@ -17,11 +17,13 @@ function App() {
 
             <main id="main-content">
                 <Routes>
-                    <Route path='/' element={<Home />} />
-                    <Route path='/games' element={<Catalogue />} />
-                    <Route path='/games/create' element={<CreateGame />} />
-                    <Route path='/games/id/details' element={<DetailsGame />} />
-                    <Route path='/games/id/edit' element={<EditGame />} />
+                    <Route index element={<Home />} />
+                    <Route path='/games'>
+                        <Route index element={<Catalogue />} />
+                        <Route path='create' element={<CreateGame />} />
+                        <Route path=':id/details' element={<DetailsGame />} />
+                        <Route path=':id/edit' element={<EditGame />} />
+                    </Route>
                     <Route path='/register' element={<Register />} />
                     <Route path='/login' element={<Login />} />
                 </Routes>

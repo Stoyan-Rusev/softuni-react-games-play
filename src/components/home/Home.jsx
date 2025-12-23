@@ -3,7 +3,7 @@ export default function Home () {
         <>
         <section id="welcome-world">
 
-            <div class="welcome-message">
+            <div className="welcome-message">
                 <h2>ALL new games are</h2>
                 <h3>Only in GamesPlay</h3>
             </div>
@@ -13,45 +13,45 @@ export default function Home () {
                 <h1>Latest Games</h1>
 
                 {/* <!-- Display div: with information about every game (if any) --> */}
-                <div class="game">
-                    <div class="image-wrap">
+                <div className="game">
+                    <div className="image-wrap">
                         <img src="./images/CoverFire.png" />
                     </div>
                     <h3>Cover Fire</h3>
-                    <div class="rating">
+                    <div className="rating">
                         <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
                     </div>
-                    <div class="data-buttons">
-                        <a href="#" class="btn details-btn">Details</a>
+                    <div className="data-buttons">
+                        <a href="#" className="btn details-btn">Details</a>
                     </div>
                 </div>
-                <div class="game">
-                    <div class="image-wrap">
+                <div className="game">
+                    <div className="image-wrap">
                         <img src="./images/ZombieLang.png" />
                     </div>
                     <h3>Zombie Lang</h3>
-                    <div class="rating">
+                    <div className="rating">
                         <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
                     </div>
-                    <div class="data-buttons">
-                        <a href="#" class="btn details-btn">Details</a>
+                    <div className="data-buttons">
+                        <a href="#" className="btn details-btn">Details</a>
                     </div>
                 </div>
-                <div class="game">
-                    <div class="image-wrap">
+                <div className="game">
+                    <div className="image-wrap">
                         <img src="./images/MineCraft.png" />
                     </div>
                     <h3>MineCraft</h3>
-                    <div class="rating">
+                    <div className="rating">
                         <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
                     </div>
-                    <div class="data-buttons">
-                        <a href="#" class="btn details-btn">Details</a>
+                    <div className="data-buttons">
+                        <a href="#" className="btn details-btn">Details</a>
                     </div>
                 </div>
 
                 {/* <!-- Display paragraph: If there is no games  --> */}
-                {/* <p class="no-articles">No games yet</p> */}
+                {/* <p className="no-articles">No games yet</p> */}
             </div>
         </section>
         </>
