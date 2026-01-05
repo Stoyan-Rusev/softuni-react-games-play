@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router";
 import { create } from "../../services/gameService"; 
 
 export default function CreateGame() {
+    const navigate = useNavigate();
+
     const submitHandler = async (e) => {
         e.preventDefault();
         const form = e.currentTarget;
@@ -9,6 +12,7 @@ export default function CreateGame() {
 
         await create(data);
         form.reset();
+        navigate('/games');
     }   
 
     return (
