@@ -3,12 +3,13 @@ import { create } from "../../services/gameService";
 export default function CreateGame() {
     const submitHandler = async (e) => {
         e.preventDefault();
-        const formData = new FormData(e.currentTarget);
+        const form = e.currentTarget;
+        const formData = new FormData(form);
         const data = Object.fromEntries(formData);
 
-        const newGame = await create(data);
-        console.log(newGame);
-    }
+        await create(data);
+        form.reset();
+    }   
 
     return (
         <section id="create-page" className="auth">
@@ -30,6 +31,7 @@ export default function CreateGame() {
 
                     <label htmlFor="summary">Summary:</label>
                     <textarea name="summary" id="summary"></textarea>
+
                     <input className="btn submit" type="submit" value="Create Game" />
                 </div>
             </form>
