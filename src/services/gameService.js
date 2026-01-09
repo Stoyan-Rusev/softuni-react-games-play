@@ -38,3 +38,20 @@ export const deleteGame = async (gameId) => {
 
     return true;
 };
+
+export const editGame = async (game) => {
+    const response = await fetch(`${baseUrl}/${game._id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(game)
+    });
+
+    if (!response.ok) {
+        throw new Error('Unsuccessful game edit!')
+    };
+
+    const editedGame = await response.json();
+    return editedGame;
+}

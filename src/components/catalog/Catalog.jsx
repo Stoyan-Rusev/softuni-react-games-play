@@ -9,7 +9,6 @@ export default function Catalog() {
         getAll()
             .then(response => {
                 setGames(response);
-                console.log(response);
             });
     }, []);
 
