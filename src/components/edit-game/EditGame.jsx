@@ -20,7 +20,7 @@ export default function EditGame() {
 
         try {
             await editGame(formData);
-            navigate('/games'); 
+            navigate(`/games/${id}/details`); 
         } catch(err) {
             alert(err.message);
             console.log(err);
