@@ -1,17 +1,24 @@
-export default function Login() {
+export default function Login(
+    {onLogin,}
+) {
+    const loginAction = (formData) => {
+        const email = formData.get('email');
+        onLogin(email);
+    };
+
     return (
-        <section id="login-page" class="auth">
-            <form id="login">
-                <div class="container">
-                    <div class="brand-logo"></div>
+        <section id="login-page" className="auth">
+            <form id="login" action={loginAction}>
+                <div className="container">
+                    <div className="brand-logo"></div>
                     <h1>Login</h1>
-                    <label for="email">Email:</label>
+                    <label htmlFor="email">Email:</label>
                     <input type="email" id="email" name="email" placeholder="Sokka@gmail.com" />
 
-                    <label for="login-pass">Password:</label>
+                    <label htmlFor="login-password">Password:</label>
                     <input type="password" id="login-password" name="password" />
-                    <input type="submit" class="btn submit" value="Login" />
-                    <p class="field">
+                    <input type="submit" className="btn submit" value="Login" />
+                    <p className="field">
                         <span>If you don't have profile click <a href="#">here</a></span>
                     </p>
                 </div>

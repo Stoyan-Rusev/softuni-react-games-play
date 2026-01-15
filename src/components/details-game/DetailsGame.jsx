@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router";
 
 import { deleteGame, getOne } from "../../services/gameService";
+import AddComment from "../add-comment/AddComment";
  
-export default function DetailsGame() {
+export default function DetailsGame(
+    {email,}
+) {
     const { id } = useParams();
     const [game, setGame] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
         getOne(id)
-            .then(data => setGame(data));
+            .then(data => {setGame(data); console.log(email);});
     }, []);
 
     const deleteGameHandler = async () => {
@@ -65,16 +68,7 @@ export default function DetailsGame() {
                 </div>
             </div>
 
-            {/* <!-- Bonus --> */}
-            {/* <!-- Add Comment ( Only for logged-in users, which is not creators of the current game ) --> */}
-            <article className="create-comment">
-                <label>Add new comment:</label>
-                <form className="form">
-                    <textarea name="comment" placeholder="Comment......"></textarea>
-                    <input className="btn submit" type="submit" value="Add Comment" />
-                </form>
-            </article>
-
+            <AddComment email={email}/>
         </section>
     );
 };
