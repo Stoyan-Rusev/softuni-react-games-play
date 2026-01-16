@@ -27,7 +27,7 @@ function App() {
                     <Route path='/games'>
                         <Route index element={<Catalog />} />
                         <Route path='create' element={<CreateGame />} />
-                        <Route path=':id/details' element={<DetailsGame emai={userEmail}/>} />
+                        <Route path=':id/details' element={<DetailsGame email={userEmail}/>} />
                         <Route path=':id/edit' element={<EditGame />} />
                     </Route>
                     <Route path='/register' element={<Register />} />

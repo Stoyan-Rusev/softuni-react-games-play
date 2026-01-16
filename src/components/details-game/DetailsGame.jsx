@@ -2,19 +2,30 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router";
 
 import { deleteGame, getOne } from "../../services/gameService";
+import { getGameComments } from "../../services/commentService";
 import AddComment from "../add-comment/AddComment";
- 
+
 export default function DetailsGame(
-    {email,}
+    { email, }
 ) {
     const { id } = useParams();
     const [game, setGame] = useState({});
+    const [comments, setComments] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         getOne(id)
-            .then(data => {setGame(data); console.log(email);});
-    }, []);
+            .then(data => setGame(data));
+        getGameComments(id)
+            .then(data => setComments(data));
+    }, [id]);
+
+    const commentsRefresh = (newComment) => {
+        setComments([
+            ...comments,
+            newComment,
+        ]);
+    };
 
     const deleteGameHandler = async () => {
         const hasConfirmed = confirm(`Are you sure you want to delete ${game.title}?`);
@@ -45,30 +56,29 @@ export default function DetailsGame(
                     {game.summary}
                 </p>
 
-                {/* <!-- Bonus ( for Guests and Users ) --> */}
                 <div className="details-comments">
-                    <h2>Comments:</h2>
-                    <ul>
-                        {/* <!-- list all comments for current game (If any) --> */}
-                        <li className="comment">
-                            <p>Content: I rate this one quite highly.</p>
-                        </li>
-                        <li className="comment">
-                            <p>Content: The best game.</p>
-                        </li>
-                    </ul>
-                    {/* <!-- Display paragraph: If there are no games in the database --> */}
-                    <p className="no-comment">No comments.</p>
+                    {comments.length === 0
+                        ? <p className="no-comment">No comments.</p>
+                        : <>
+                            <h2>Comments:</h2>
+                            <ul>
+                                {comments.map(comment =>
+                                    <li key={comment._id} className="comment">
+                                        <p>{comment.email}: {comment.text}</p>
+                                    </li>
+                                )}
+                            </ul>
+                        </>
+                    }
                 </div>
 
-                {/* <!-- Edit/Delete buttons ( Only for creator of this game )  --> */}
                 <div className="buttons">
                     <Link to={`/games/${id}/edit`} className="button">Edit</Link>
                     <button onClick={deleteGameHandler} className="button">Delete</button>
                 </div>
             </div>
 
-            <AddComment email={email}/>
+            <AddComment email={email} gameId={id} commentsRefresh={commentsRefresh}/>
         </section>
     );
 };

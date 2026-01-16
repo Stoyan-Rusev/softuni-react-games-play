@@ -1,9 +1,14 @@
+import { useNavigate } from "react-router";
+
 export default function Login(
     {onLogin,}
 ) {
+    const navigate = useNavigate();
+
     const loginAction = (formData) => {
         const email = formData.get('email');
         onLogin(email);
+        navigate('/games');
     };
 
     return (
