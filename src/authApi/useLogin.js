@@ -8,26 +8,42 @@ export default function useLogin() {
     useEffect(() => {
         return () => {
             controllerRef.current?.abort();
-        } 
+        }
     }, []);
 
     const login = async (userData) => {
         controllerRef.current?.abort();
         controllerRef.current = new AbortController();
- 
+
         const { email, password } = userData;
 
-        const response = await fetch(baseUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({email, password}),
-            signal: controllerRef.current.signal,
-        });
+        try {
+            const response = await fetch(baseUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password }),
+                signal: controllerRef.current.signal,
+            });
 
-        const authData = await response.json();
-        return authData;
+            if (!response.ok) {
+                return { error: `Login failed: ${response.status}`, email: '' };
+            }
+
+            const authData = await response.json();
+            return authData;
+
+        } catch (error) {
+            if (error.name === "AbortError") {
+                console.log("Login aborted");
+                return; 
+            }
+            
+            console.log(error);
+            return {error, email: ''}
+        }
+
     };
 
     return login;
