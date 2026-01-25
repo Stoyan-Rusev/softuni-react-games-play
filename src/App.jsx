@@ -13,8 +13,9 @@ import Register from './components/register/Register'
 function App() {
     const [userEmail, setUserEmail] = useState('');
 
-    const loginHandler = (email) => {
-        setUserEmail(email);
+    const loginHandler = (authData) => {
+        console.log(authData);
+        setUserEmail(authData.email);
     };
 
     return (

@@ -1,5 +1,6 @@
 import { useActionState } from "react";
 import { useNavigate } from "react-router";
+import useLogin from "../../authApi/useLogin";
 
 export default function Login(
     {onLogin,}
@@ -7,14 +8,13 @@ export default function Login(
     const navigate = useNavigate();
 
     const loginHandler = async (prevState, formData) => {
-        const values = Object.fromEntries(formData);
+        const login = useLogin();
+        const loginData = Object.fromEntries(formData);
 
-        const email = values.email;
-        if (!email) {
-            return { error: 'Email is required', email: '' };
-        }
-        
-        onLogin(email);
+        const response = await login(loginData);
+        const authData = await response.json();
+
+        onLogin(authData);
         navigate('/games');
         return values;
     };  
