@@ -6,17 +6,16 @@ export default function Login(
     {onLogin,}
 ) {
     const navigate = useNavigate();
+    const login = useLogin();
 
     const loginHandler = async (prevState, formData) => {
-        const login = useLogin();
         const loginData = Object.fromEntries(formData);
 
-        const response = await login(loginData);
-        const authData = await response.json();
-
+        const authData = await login(loginData);
+       
         onLogin(authData);
         navigate('/games');
-        return values;
+        return loginData;
     };  
 
     const initialState = {
@@ -36,7 +35,7 @@ export default function Login(
 
                     <label htmlFor="login-password">Password:</label>
                     <input type="password" id="login-password" name="password" />
-                    <input type="submit" className="btn submit" value="Login" />
+                    <input type="submit" className="btn submit" value="Login" disabled={isPending} />
                     <p className="field">
                         <span>If you don't have profile click <a href="#">here</a></span>
                     </p>
