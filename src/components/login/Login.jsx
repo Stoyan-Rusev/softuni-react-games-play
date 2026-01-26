@@ -1,10 +1,11 @@
-import { useActionState } from "react";
+import { useActionState, useContext } from "react";
 import { useNavigate } from "react-router";
 import useLogin from "../../authApi/useLogin";
 
-export default function Login(
-    {onLogin,}
-) {
+import { UserContext } from "../../contexts/UserContext";
+
+export default function Login() {
+    const { userLogin } = useContext(UserContext);
     const navigate = useNavigate();
     const login = useLogin();
 
@@ -12,11 +13,11 @@ export default function Login(
         const loginData = Object.fromEntries(formData);
 
         const authData = await login(loginData);
-       
-        onLogin(authData);
+
+        userLogin(authData);
         navigate('/games');
         return loginData;
-    };  
+    };
 
     const initialState = {
         email: '',

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router'
 
+import { UserContext } from './contexts/UserContext'
+
 import Header from "./components/header/Header"
 import Home from "./components/home/Home"
 import Catalog from './components/catalog/Catalog'
@@ -11,13 +13,14 @@ import Login from './components/login/Login'
 import Register from './components/register/Register'
 
 function App() {
-    const [userEmail, setUserEmail] = useState('');
+    const [authData, setAuthData] = useState({});
 
-    const loginHandler = (authData) => {
-        setUserEmail(authData.email);
+    const userLogin = (data) => {
+        setAuthData(data);
     };
 
     return (
+        <UserContext.Provider value={{...authData, userLogin}}>
         <div id="box">
             <Header />
 
@@ -27,14 +30,15 @@ function App() {
                     <Route path='/games'>
                         <Route index element={<Catalog />} />
                         <Route path='create' element={<CreateGame />} />
-                        <Route path=':id/details' element={<DetailsGame email={userEmail}/>} />
+                        <Route path=':id/details' element={<DetailsGame />} />
                         <Route path=':id/edit' element={<EditGame />} />
                     </Route>
                     <Route path='/register' element={<Register />} />
-                    <Route path='/login' element={<Login onLogin={loginHandler}/>} />
+                    <Route path='/login' element={<Login />} />
                 </Routes>
             </main>
         </div>
+        </UserContext.Provider>
     )
 };
 

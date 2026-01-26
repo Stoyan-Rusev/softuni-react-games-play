@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router";
 
 import { deleteGame, getOne } from "../../services/gameService";
 import { getGameComments } from "../../services/commentService";
 import AddComment from "../add-comment/AddComment";
 
-export default function DetailsGame(
-    { email, }
-) {
+import { UserContext } from "../../contexts/UserContext";
+
+export default function DetailsGame() {
+    const { email } = useContext(UserContext);
     const { id } = useParams();
     const [game, setGame] = useState({});
     const [comments, setComments] = useState([]);
@@ -78,7 +79,7 @@ export default function DetailsGame(
                 </div>
             </div>
 
-            <AddComment email={email} gameId={id} commentsRefresh={commentsRefresh}/>
+            <AddComment email={email} gameId={id} commentsRefresh={commentsRefresh} />
         </section>
     );
 };
