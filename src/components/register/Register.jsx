@@ -1,23 +1,35 @@
+import useRegister from "../../authApi/useRegister";
+
 export default function Register() {
+    const register = useRegister();
+
+    const registerHandler = async (formData) => {
+        const requestData = Object.fromEntries(formData);
+
+        const newUserData = await register(requestData);
+        console.log(newUserData);
+    };
+
+
     return (
-        <section id="register-page" class="content auth">
-            <form id="register">
-                <div class="container">
-                    <div class="brand-logo"></div>
+        <section id="register-page" className="content auth">
+            <form id="register" action={registerHandler}>
+                <div className="container">
+                    <div className="brand-logo"></div>
                     <h1>Register</h1>
 
-                    <label for="email">Email:</label>
+                    <label htmlFor="email">Email:</label>
                     <input type="email" id="email" name="email" placeholder="maria@email.com" />
 
-                    <label for="pass">Password:</label>
+                    <label htmlFor="pass">Password:</label>
                     <input type="password" name="password" id="register-password" />
 
-                    <label for="con-pass">Confirm Password:</label>
+                    <label htmlFor="con-pass">Confirm Password:</label>
                     <input type="password" name="confirm-password" id="confirm-password" />
 
-                    <input class="btn submit" type="submit" value="Register" />
+                    <input className="btn submit" type="submit" value="Register" />
 
-                    <p class="field">
+                    <p className="field">
                         <span>If you already have profile click <a href="#">here</a></span>
                     </p>
                 </div>

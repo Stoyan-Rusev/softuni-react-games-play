@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const baseUrl = 'http://localhost:3030/users/login'
+const url = 'http://localhost:3030/users/login'
 
 export default function useLogin() {
     const controllerRef = useRef(null);
@@ -18,7 +18,7 @@ export default function useLogin() {
         const { email, password } = userData;
 
         try {
-            const response = await fetch(baseUrl, {
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
