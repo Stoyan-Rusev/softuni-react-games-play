@@ -1,13 +1,19 @@
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 import useRegister from "../../authApi/useRegister";
 
 export default function Register() {
     const register = useRegister();
+    const { userLogin } = useContext(UserContext);
 
     const registerHandler = async (formData) => {
         const requestData = Object.fromEntries(formData);
 
         const newUserData = await register(requestData);
-        console.log(newUserData);
+
+        if (!newUserData.data) {
+            userLogin(newUserData);
+        }
     };
 
 
@@ -21,10 +27,10 @@ export default function Register() {
                     <label htmlFor="email">Email:</label>
                     <input type="email" id="email" name="email" placeholder="maria@email.com" />
 
-                    <label htmlFor="pass">Password:</label>
+                    <label htmlFor="password">Password:</label>
                     <input type="password" name="password" id="register-password" />
 
-                    <label htmlFor="con-pass">Confirm Password:</label>
+                    <label htmlFor="confirm-password">Confirm Password:</label>
                     <input type="password" name="confirm-password" id="confirm-password" />
 
                     <input className="btn submit" type="submit" value="Register" />

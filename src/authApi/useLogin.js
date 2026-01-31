@@ -43,9 +43,7 @@ export default function useLogin() {
             console.log(error);
             return {error, email: ''}
         }
-
     };
 
     return login;
 };
-
