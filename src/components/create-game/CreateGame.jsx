@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router";
-import { create } from "../../services/gameService"; 
+import useCreate from "../../gamesApi/useCreate";
 
 export default function CreateGame() {
     const navigate = useNavigate();
+    const create = useCreate();
 
     const submitHandler = async (e) => {
         e.preventDefault();
