@@ -9,11 +9,7 @@ export default function useGames() {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch(baseUrl, {
-                headers: {
-                    "X-Authorization": accessToken
-                }
-            });
+            const response = await fetch(baseUrl);
 
             const data = await response.json();
             const gamesData = Object.values(data);
