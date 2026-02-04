@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router";
 
-import { deleteGame, getOne } from "../../services/gameService";
+import { deleteGame } from "../../services/gameService";
 import { getGameComments } from "../../services/commentService";
+import useGame from "../../gamesApi/useGame"
+
 import AddComment from "../add-comment/AddComment";
 
 import { UserContext } from "../../contexts/UserContext";
@@ -10,13 +12,11 @@ import { UserContext } from "../../contexts/UserContext";
 export default function DetailsGame() {
     const { email } = useContext(UserContext);
     const { id } = useParams();
-    const [game, setGame] = useState({});
+    const { game } = useGame(id);
     const [comments, setComments] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        getOne(id)
-            .then(data => setGame(data));
         getGameComments(id)
             .then(data => setComments(data));
     }, [id]);
@@ -47,7 +47,7 @@ export default function DetailsGame() {
             <div className="info-section">
 
                 <div className="game-header">
-                    <img className="game-img" src={game.imageUrl} />
+                    <img className="game-img" src={game?.imageUrl} />
                     <h1>{game.title}</h1>
                     <span className="levels">MaxLevel: {game.maxLevel}</span>
                     <p className="type">{game.category}</p>
