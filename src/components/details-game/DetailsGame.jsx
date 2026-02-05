@@ -10,7 +10,7 @@ import AddComment from "../add-comment/AddComment";
 import { UserContext } from "../../contexts/UserContext";
 
 export default function DetailsGame() {
-    const { email } = useContext(UserContext);
+    const { email, _id } = useContext(UserContext);
     const { id } = useParams();
     const { game } = useGame(id);
     const [comments, setComments] = useState([]);
@@ -73,13 +73,17 @@ export default function DetailsGame() {
                     }
                 </div>
 
-                <div className="buttons">
-                    <Link to={`/games/${id}/edit`} className="button">Edit</Link>
-                    <button onClick={deleteGameHandler} className="button">Delete</button>
-                </div>
+                {game._ownerId === _id &&
+                    <div className="buttons">
+                        <Link to={`/games/${id}/edit`} className="button">Edit</Link>
+                        <button onClick={deleteGameHandler} className="button">Delete</button>
+                    </div>
+                }
+                
             </div>
 
-            <AddComment email={email} gameId={id} commentsRefresh={commentsRefresh} />
+            {email && <AddComment email={email} gameId={id} commentsRefresh={commentsRefresh} />}
+
         </section>
     );
 };
