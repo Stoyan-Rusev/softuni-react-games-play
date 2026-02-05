@@ -20,24 +20,25 @@ function App() {
     };
 
     return (
-        <UserContext.Provider value={{...authData, userLogin}}>
-        <div id="box">
-            <Header />
-
-            <main id="main-content">
-                <Routes>
-                    <Route index element={<Home />} />
-                    <Route path='/games'>
-                        <Route index element={<Catalog />} />
-                        <Route path='create' element={<CreateGame />} />
-                        <Route path=':id/details' element={<DetailsGame />} />
-                        <Route path=':id/edit' element={<EditGame />} />
-                    </Route>
-                    <Route path='/register' element={<Register />} />
-                    <Route path='/login' element={<Login />} />
-                </Routes>
-            </main>
-        </div>
+        <UserContext.Provider value={{ ...authData, userLogin, setAuthData }}>
+            <div id="box">
+                <Header />
+                <h1>{authData.email}</h1>
+                
+                <main id="main-content">
+                    <Routes>
+                        <Route index element={<Home />} />
+                        <Route path='/games'>
+                            <Route index element={<Catalog />} />
+                            <Route path='create' element={<CreateGame />} />
+                            <Route path=':id/details' element={<DetailsGame />} />
+                            <Route path=':id/edit' element={<EditGame />} />
+                        </Route>
+                        <Route path='/register' element={<Register />} />
+                        <Route path='/login' element={<Login />} />
+                    </Routes>
+                </main>
+            </div>
         </UserContext.Provider>
     )
 };

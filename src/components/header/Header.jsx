@@ -2,9 +2,12 @@ import { useContext } from 'react';
 import { Link } from 'react-router'
 
 import { UserContext } from '../../contexts/UserContext';
+import useLogout from '../../authApi/useLogout';
 
 export default function Header() {
     const { accessToken } = useContext(UserContext);
+    const { logout } = useLogout();
+
     const isAuthenticated = !!accessToken
 
     return (
@@ -17,7 +20,7 @@ export default function Header() {
                     ?
                     <div id="user">
                         <Link to="/games/create">Create Game</Link>
-                        <Link to="/logout">Logout</Link>
+                        <button className='nav a' onClick={() => logout()}>Logout</button>
                     </div>
                     :
                     <div id="guest">
@@ -29,5 +32,3 @@ export default function Header() {
         </header>
     );
 };
-
-
