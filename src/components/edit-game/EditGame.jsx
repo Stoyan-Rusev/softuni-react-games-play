@@ -8,7 +8,10 @@ export default function EditGame() {
     const { editGame } = useEdit(id);
 
     const submitHandler = async (e) => {
-        editGame(e);
+        e.preventDefault();
+        let formData = Object.fromEntries(new FormData(e.target));
+
+        editGame(formData);
     };
 
     return (

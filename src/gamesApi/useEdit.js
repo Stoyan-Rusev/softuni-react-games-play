@@ -8,10 +8,7 @@ export default function useEdit(gameId) {
     const { accessToken } = useContext(UserContext);
     const navigate = useNavigate();
 
-    const editGame = async (e) => {
-        e.preventDefault();
-
-        let formData = Object.fromEntries(new FormData(e.target));
+    const editGame = async (formData) => {
         formData._id = gameId;
 
         try {
