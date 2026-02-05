@@ -1,20 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router";
 
-import { deleteGame } from "../../services/gameService";
 import { getGameComments } from "../../services/commentService";
 import useGame from "../../gamesApi/useGame"
 
 import AddComment from "../add-comment/AddComment";
 
 import { UserContext } from "../../contexts/UserContext";
+import useDelete from "../../gamesApi/useDelete";
 
 export default function DetailsGame() {
     const { email, _id } = useContext(UserContext);
     const { id } = useParams();
     const { game } = useGame(id);
+    const { deleteGame } = useDelete(id, game.title);
     const [comments, setComments] = useState([]);
-    const navigate = useNavigate();
 
     useEffect(() => {
         getGameComments(id)
@@ -26,19 +26,6 @@ export default function DetailsGame() {
             ...comments,
             newComment,
         ]);
-    };
-
-    const deleteGameHandler = async () => {
-        const hasConfirmed = confirm(`Are you sure you want to delete ${game.title}?`);
-
-        if (!hasConfirmed) return;
-
-        try {
-            await deleteGame(id);
-            navigate('/games');
-        } catch (err) {
-            alert('Failed to delete game: ' + err.message);
-        };
     };
 
     return (
@@ -76,10 +63,10 @@ export default function DetailsGame() {
                 {game._ownerId === _id &&
                     <div className="buttons">
                         <Link to={`/games/${id}/edit`} className="button">Edit</Link>
-                        <button onClick={deleteGameHandler} className="button">Delete</button>
+                        <button onClick={deleteGame} className="button">Delete</button>
                     </div>
                 }
-                
+
             </div>
 
             {email && <AddComment email={email} gameId={id} commentsRefresh={commentsRefresh} />}
