@@ -23,8 +23,6 @@ function App() {
         <UserContext.Provider value={{ ...authData, userLogin, setAuthData }}>
             <div id="box">
                 <Header />
-                <h1>{authData.email}</h1> 
-                <h1>{authData.accessToken}</h1> 
                 
                 <main id="main-content">
                     <Routes>

@@ -5,7 +5,7 @@ import { UserContext } from '../../contexts/UserContext';
 import useLogout from '../../authApi/useLogout';
 
 export default function Header() {
-    const { accessToken } = useContext(UserContext);
+    const { email, accessToken } = useContext(UserContext);
     const { logout } = useLogout();
 
     const isAuthenticated = !!accessToken
@@ -28,6 +28,7 @@ export default function Header() {
                         <Link to="/register">Register</Link>
                     </div>
                 }
+                <p>{email}</p>
             </nav>
         </header>
     );
