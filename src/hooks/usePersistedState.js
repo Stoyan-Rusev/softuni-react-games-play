@@ -5,12 +5,19 @@ export default function usePersistedState(initial) {
         const authData = localStorage.getItem('auth');
 
         if (authData === null) {
-            localStorage.setItem('auth', initial);
+            const initialJson = JSON.stringify(initial)
+            localStorage.setItem('auth', initialJson);
+            return initial;
         };
 
-        return initial;
-
+        return JSON.parse(authData);
     });
 
-    return [state, setState];
+    const setPersistedState = (data) => {
+        setState(data);
+        const dataJson = JSON.stringify(data);
+        localStorage.setItem('auth', dataJson);
+    };
+
+    return [state, setPersistedState];
 };

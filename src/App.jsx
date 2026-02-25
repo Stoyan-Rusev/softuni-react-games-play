@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Routes, Route } from 'react-router'
 
 import { UserContext } from './contexts/UserContext'
@@ -11,9 +10,10 @@ import DetailsGame from './components/details-game/DetailsGame'
 import EditGame from './components/edit-game/EditGame'
 import Login from './components/login/Login'
 import Register from './components/register/Register'
+import usePersistedState from './hooks/usePersistedState'
 
 function App() {
-    const [authData, setAuthData] = useState({});
+    const [authData, setAuthData] = usePersistedState({});
 
     const userLogin = (data) => {
         setAuthData(data);
@@ -23,7 +23,7 @@ function App() {
         <UserContext.Provider value={{ ...authData, userLogin, setAuthData }}>
             <div id="box">
                 <Header />
-                
+
                 <main id="main-content">
                     <Routes>
                         <Route index element={<Home />} />
